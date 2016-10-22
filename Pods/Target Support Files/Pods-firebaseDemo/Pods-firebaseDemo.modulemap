@@ -1,0 +1,6 @@
+framework module Pods_firebaseDemo {
+  umbrella header "Pods-firebaseDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
