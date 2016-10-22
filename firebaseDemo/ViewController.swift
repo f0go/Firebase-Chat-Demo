@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
-    var myName: String = "\(Int(NSDate().timeIntervalSince1970))"
+    var myName: String = ""
     var chats:[Message] = []
     
     var firebase: FIRDatabaseReference!
@@ -34,6 +34,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.table.reloadData()
             self.table.scrollToRow(at: IndexPath(row: self.chats.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: true)
         })
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let nameAlert = UIAlertController(title: "Name", message: nil, preferredStyle: .alert)
+        nameAlert.addTextField()
+        
+        let ok = UIAlertAction(title: "Ok", style: .default) { [unowned nameAlert] _ in
+            self.myName = nameAlert.textFields![0].text!
+        }
+        
+        nameAlert.addAction(ok)
+        present(nameAlert, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
